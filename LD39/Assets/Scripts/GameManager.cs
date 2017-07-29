@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -10,12 +11,18 @@ public class GameManager : MonoBehaviour
 
     public float playerHealth;
     public float playerPower;
+    public float playerCells;
+
+    private float corePower;
 
     private void Awake()
     {
+        corePower = 1000;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerHealth = 10;
         playerPower = 100;
+        playerCells = 0;
 
         // Ensure the instance is of the type GameManager
         if (instance == null)
@@ -30,6 +37,18 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         player.OnDeath += GameOver;
+
+        StartCoroutine(DrainPower());
+    }
+
+    IEnumerator DrainPower()
+    {
+        for (; ; )
+        {
+            // execute block of code here
+            corePower -= 1;
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
@@ -57,10 +76,12 @@ public class GameManager : MonoBehaviour
         // compute new health as fraction of xp
         float currentHealth = player.GetHealth();
         float currentPower = player.GetPower();
+        float currentCells = player.GetCells();
 
         // store player stats
         playerHealth = currentHealth;
         playerPower = currentPower;
+        playerCells = currentCells;
     }
 
     void GameOver()
