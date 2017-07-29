@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance = null;
+
+    public Slider hpGuage;
+    public Slider powerGuage;
+    public Text cellCount;
 
     Player player;
 
@@ -20,6 +25,7 @@ public class GameManager : MonoBehaviour
         corePower = 1000;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         playerHealth = 10;
         playerPower = 100;
         playerCells = 0;
@@ -39,6 +45,13 @@ public class GameManager : MonoBehaviour
         player.OnDeath += GameOver;
 
         StartCoroutine(DrainPower());
+    }
+
+    private void Update()
+    {
+        hpGuage.value = player.GetHealth();
+        powerGuage.value = player.GetPower();
+        cellCount.text = "" + player.GetCells();
     }
 
     IEnumerator DrainPower()

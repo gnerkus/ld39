@@ -51,4 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f674902ca1c09469094ed3c15bde5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpGuage: {fileID: 0}
   playerHealth: 0
+  playerPower: 0
+  playerCells: 0
