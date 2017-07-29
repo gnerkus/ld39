@@ -9,11 +9,13 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     public float playerHealth;
+    public float playerPower;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerHealth = 10;
+        playerPower = 100;
 
         // Ensure the instance is of the type GameManager
         if (instance == null)
@@ -47,6 +49,18 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    // Store Player stats for the next level
+    public void NewLevel()
+    {
+        // compute new health as fraction of xp
+        float currentHealth = player.GetHealth();
+        float currentPower = player.GetPower();
+
+        // store player stats
+        playerHealth = currentHealth;
+        playerPower = currentPower;
     }
 
     void GameOver()

@@ -3,7 +3,6 @@
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-
     Vector3 velocity;
     Rigidbody rb;
 

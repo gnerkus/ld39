@@ -3,26 +3,34 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(LightstickController))]
 public class Player : LivingEntity
 {
 
     public LineRenderer lineOfSight;
+    public GlowingObject lamp;
 
     // The PlayerController script handles the movement of the Player
     PlayerController playerController;
+    LightstickController lightstickController;
     Camera viewCamera;
 
     float moveSpeed = 5f;
 
+    private float lightPower;
+
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
+        lightstickController = GetComponent<LightstickController>();
         viewCamera = Camera.main;
     }
 
     protected override void Start()
     {
         base.Start();
+
+        UpdateStats(GameManager.instance.playerHealth, GameManager.instance.playerPower);
         // Set the line of sight to the Player's position. This will change to the
         // position of the gun's muzzle.
         lineOfSight.SetPosition(0, transform.position);
@@ -61,17 +69,38 @@ public class Player : LivingEntity
             // this should be limited to a length
             lineOfSight.SetPosition(1, point);
         }
+
+        // Turn lamp on or off
+        if (Input.GetMouseButtonUp(0))
+        {
+            lamp.ToggleLight();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (lightPower <= 0)
+                return;
+
+            lightPower -= 5;
+            lightstickController.DropLight();
+        }
     }
 
     // This method allows the player to carry experience and health over
     // levels. The Player's stats are stored when a new level is to be loaded.
-    void UpdateStats(float newHP, float newXP)
+    void UpdateStats(float newHP, float newPower)
     {
         health = newHP;
+        lightPower = newPower;
     }
 
     public float GetHealth()
     {
         return health;
+    }
+
+    public float GetPower()
+    {
+        return lightPower;
     }
 }
