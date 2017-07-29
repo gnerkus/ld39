@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance = null;
 
-    private Player player;
+    Player player;
 
     public float playerHealth;
     public float playerPower;
@@ -66,5 +66,10 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         enabled = false;
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
     }
 }

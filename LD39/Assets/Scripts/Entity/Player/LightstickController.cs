@@ -14,5 +14,6 @@ public class LightstickController : MonoBehaviour
     public void DropLight()
     {
         GlowingObject stick = Instantiate(lightstick, spawner.position, Quaternion.identity);
+        EventManager.instance.TriggerEvent("NewGlowingObject", stick);
     }
 }

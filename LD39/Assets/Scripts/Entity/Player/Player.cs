@@ -71,8 +71,9 @@ public class Player : LivingEntity
         }
 
         // Turn lamp on or off
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
+            EventManager.instance.TriggerEvent("NewGlowingObject", lamp);
             lamp.ToggleLight();
         }
 

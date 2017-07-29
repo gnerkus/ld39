@@ -5,10 +5,14 @@ public class GlowingObject : LivingEntity {
 
     Light lightSource;
 
-	// Use this for initialization
-	void Start () {
-        base.Start();
+    private void Awake()
+    {
         lightSource = transform.Find("Point light").GetComponent<Light>();
+    }
+
+    // Use this for initialization
+    protected override void Start () {
+        base.Start();
 	}
 
     public void ToggleLight()
