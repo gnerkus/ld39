@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 782366131}
   - component: {fileID: 782366134}
   - component: {fileID: 782366132}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,15 +595,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 195151454386466692, guid: 8d034f2e3bd482d42a115829cdff5e48,
+    - target: {fileID: 114174955809261348, guid: 8d034f2e3bd482d42a115829cdff5e48,
         type: 2}
-      propertyPath: m_StoppingDistance
-      value: 1
+      propertyPath: msBetweenAttacks
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 114174955809261348, guid: 8d034f2e3bd482d42a115829cdff5e48,
         type: 2}
-      propertyPath: viewMask.m_Bits
-      value: 1024
+      propertyPath: lightScanMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 114174955809261348, guid: 8d034f2e3bd482d42a115829cdff5e48,
+        type: 2}
+      propertyPath: attackType
+      value: 
+      objectReference: {fileID: 114154444678280394, guid: fa7de7ed08f9c5b499e02d9315931186,
+        type: 2}
+    - target: {fileID: 114174955809261348, guid: 8d034f2e3bd482d42a115829cdff5e48,
+        type: 2}
+      propertyPath: rangeOfAttack
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 195151454386466692, guid: 8d034f2e3bd482d42a115829cdff5e48,
+        type: 2}
+      propertyPath: m_StoppingDistance
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d034f2e3bd482d42a115829cdff5e48, type: 2}
@@ -790,7 +806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1736984679}
   - component: {fileID: 1736984680}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

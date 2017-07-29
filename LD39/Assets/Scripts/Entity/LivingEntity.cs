@@ -36,8 +36,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         dead = true;
+        DestroyImmediate(gameObject);
         OnDeath?.Invoke();
-        Destroy(gameObject);
     }
 
     // This method assumes the amount is positive

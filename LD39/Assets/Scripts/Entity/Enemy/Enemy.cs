@@ -15,7 +15,7 @@ public class Enemy : LivingEntity
 
     public float msBetweenAttacks;
     float nextAttackTime;
-    float attackSpeed = 0f;
+    float attackSpeed = 2f;
     float attackLifeTime = .2f;
 
     float currentIntensity = 0f;
@@ -99,7 +99,7 @@ public class Enemy : LivingEntity
 
         if (CanSeeTarget(glowingObject.transform))
         {
-            if (goIntensity > currentIntensity)
+            if (goIntensity >= currentIntensity)
             {
                 target = glowingObject.transform;
                 hasTarget = true;
@@ -113,14 +113,13 @@ public class Enemy : LivingEntity
     {
         if (hasTarget)
         {
-            if (CanAttackTarget())
-            {
-                Attack();
-            }
-
             if (CanSeeTarget(target))
             {
                 transform.LookAt(new Vector3(target.position.x, 1, target.position.z));
+                if (CanAttackTarget())
+                {
+                    Attack();
+                }
             }
         }
     }
@@ -128,22 +127,22 @@ public class Enemy : LivingEntity
     // check if the Enemy can see the Player
     bool CanSeeTarget(Transform sightTarget)
     {
-        // 1. Check the distance between the Enemy and the Player
-        if (Vector3.Distance(transform.position, sightTarget.position) < rangeOfSight)
+        if (sightTarget != null)
         {
-            // 2. Cast a ray from the Enemy to the Player. If it doesn't hit anything, the Enemy can see the Player
-            if (!Physics.Linecast(transform.position, sightTarget.position, viewMask))
+            // 1. Check the distance between the Enemy and the Player
+            if (Vector3.Distance(transform.position, sightTarget.position) < rangeOfSight)
             {
-                // 3. Check if the Player's light source is enabled
-                Light targetLight = sightTarget.Find("Point light").GetComponent<Light>();
-                if (targetLight.enabled)
+                // 2. Cast a ray from the Enemy to the Player. If it doesn't hit anything, the Enemy can see the Player
+                if (!Physics.Linecast(transform.position, sightTarget.position, viewMask))
                 {
-                    return true;
+                    // 3. Check if the Player's light source is enabled
+                    Light targetLight = sightTarget.Find("Point light").GetComponent<Light>();
+                    if (targetLight.enabled)
+                    {
+                        return true;
+                    }
+
                 }
-                
-            } else
-            {
-                Debug.Log("blocked");
             }
         }
 
@@ -154,12 +153,15 @@ public class Enemy : LivingEntity
     // check if the Enemy can attack the Player
     bool CanAttackTarget()
     {
-        // 1. Check the distance between the Enemy and the Player
-        if (Vector3.Distance(transform.position, target.position) < rangeOfAttack)
+        if (target != null)
         {
-            return true;
+            // 1. Check the distance between the Enemy and the Player
+            if (Vector3.Distance(transform.position, target.position) < rangeOfAttack)
+            {
+                return true;
+            }
         }
-
+        
         return false;
     }
 
@@ -201,7 +203,6 @@ public class Enemy : LivingEntity
 
     void Attack()
     {
-        transform.LookAt(new Vector3(target.position.x, 1, target.position.z));
         if (Time.time > nextAttackTime)
         {
             // The Enemy might not have been chasing the Player before attacking
@@ -214,7 +215,6 @@ public class Enemy : LivingEntity
 
             nextAttackTime = Time.time + msBetweenAttacks / 1000;
             Projectile newProjectile = Instantiate(attackType, attackSpawn.position, attackSpawn.rotation);
-            newProjectile.SetLifeTime(attackLifeTime);
             newProjectile.SetSpeed(attackSpeed);
 
             currentState = prevState;
@@ -252,6 +252,9 @@ public class Enemy : LivingEntity
 
     void OnLightstickDeath()
     {
+        hasTarget = false;
+        target = null;
+        currentState = State.Idle;
         // scan the area for lightsticks. if none, set target to player
         Collider[] initialCollisions = Physics.OverlapSphere(transform.position, rangeOfSight, lightScanMask);
         if (initialCollisions.Length > 0)
@@ -263,6 +266,7 @@ public class Enemy : LivingEntity
             // reset target to Player
             target = player.lamp.transform;
             currentIntensity = player.lamp.Intensity;
+            hasTarget = true;
         }
     }
 
