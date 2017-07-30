@@ -9,6 +9,7 @@ public class Player : LivingEntity
 {
 
     public LineRenderer lineOfSight;
+    public Transform crosshair;
     public GlowingObject lamp;
 
     // The PlayerController script handles the movement of the Player
@@ -37,7 +38,8 @@ public class Player : LivingEntity
         UpdateStats(GameManager.instance.playerHealth, GameManager.instance.playerPower, GameManager.instance.playerCells);
         // Set the line of sight to the Player's position. This will change to the
         // position of the gun's muzzle.
-        lineOfSight.SetPosition(0, transform.position);
+        lineOfSight.SetPosition(0, crosshair.position);
+        
     }
 
     void Update()

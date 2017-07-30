@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33811235531695376}
   - component: {fileID: 23663653801721130}
   - component: {fileID: 95074035152242402}
+  - component: {fileID: 54814524177307736}
+  - component: {fileID: 65246393728548666}
   m_Layer: 0
   m_Name: Wall2
   m_TagString: Untagged
@@ -84,6 +86,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838097979067260}
   m_Mesh: {fileID: 4300000, guid: fa852a63dfc34104087e4f7bc649ab14, type: 3}
+--- !u!54 &54814524177307736
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838097979067260}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &65246393728548666
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838097979067260}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!95 &95074035152242402
 Animator:
   serializedVersion: 3
