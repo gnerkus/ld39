@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23865277565678342}
   - component: {fileID: 114154444678280394}
   m_Layer: 0
-  m_Name: EnemyAttack
+  m_Name: EnemyAttack 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1732349717164406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.901454, y: 0.175, z: 0.97}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 8.91076, y: 0.175, z: 1.5840988}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: effeeeaec9c18094a8a49cfe4f9cf84e, type: 2}
+  - {fileID: 2100000, guid: 5a0d60e0411aed344835aa3e053eab06, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

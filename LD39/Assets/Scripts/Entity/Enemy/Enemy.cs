@@ -14,6 +14,7 @@ public class Enemy : LivingEntity
     public Projectile attackType;
 
     public float msBetweenAttacks;
+    public float attackDamage;
     float nextAttackTime;
     float attackSpeed = 2f;
     float attackLifeTime = .2f;
@@ -66,10 +67,6 @@ public class Enemy : LivingEntity
             currentIntensity = player.lamp.Intensity;
             targetEntity = player.GetComponent<LivingEntity>();
 
-            // The Player and Enemy should collide on their surfaces and not their centres.
-            collisionRadius = GetComponent<CapsuleCollider>().radius;
-            targetCollisionRadius = player.GetComponent<CapsuleCollider>().radius;
-
             currentState = State.Idle;
 
             // Listen for the Player's death event
@@ -115,7 +112,7 @@ public class Enemy : LivingEntity
         {
             if (CanSeeTarget(target))
             {
-                transform.LookAt(new Vector3(target.position.x, 1, target.position.z));
+                transform.LookAt(new Vector3(target.position.x, 100, target.position.z));
                 if (CanAttackTarget())
                 {
                     Attack();
@@ -184,7 +181,7 @@ public class Enemy : LivingEntity
                     currentState = State.Chasing;
 
                     Vector3 dirToTarget = (target.position - transform.position).normalized;
-                    Vector3 targetPos = target.position - dirToTarget * (collisionRadius + targetCollisionRadius);
+                    Vector3 targetPos = target.position - dirToTarget;
 
                     navMeshAgent.SetDestination(targetPos);
                 }
@@ -215,6 +212,7 @@ public class Enemy : LivingEntity
 
             nextAttackTime = Time.time + msBetweenAttacks / 1000;
             Projectile newProjectile = Instantiate(attackType, attackSpawn.position, attackSpawn.rotation);
+            newProjectile.SetDamage(attackDamage);
             newProjectile.SetSpeed(attackSpeed);
 
             currentState = prevState;
@@ -248,6 +246,7 @@ public class Enemy : LivingEntity
     {
         hasTarget = false;
         currentState = State.Idle;
+        transform.LookAt(new Vector3(100, transform.position.y, transform.position.z));
     }
 
     void OnLightstickDeath()

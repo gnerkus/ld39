@@ -21,6 +21,7 @@ public class GunController : MonoBehaviour
             nextShotTime = Time.time + msBetweenShots / 1000;
             Projectile newProjectile = Instantiate(bulletType, projectileSpawn.position, projectileSpawn.rotation);
             newProjectile.SetSpeed(bulletSpeed);
+            newProjectile.SetDamage(5);
         }
     }
 }
