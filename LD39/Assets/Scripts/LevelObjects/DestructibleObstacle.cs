@@ -18,7 +18,7 @@ public class DestructibleObstacle : LivingEntity, IItemCase
     {
         // pick a random item from the list of items and spawn it
         Pack itemToSpawn = deathItems[prng.Next(items.Count)];
-        Instantiate(itemToSpawn, transform.position, transform.rotation);
+        Instantiate(itemToSpawn, new Vector3(transform.position.x, 1, transform.position.z), transform.rotation);
     }
 
     public override void Die()

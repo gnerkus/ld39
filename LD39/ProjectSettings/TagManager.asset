@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - HPGuage
+  - PPGuage
+  - CellCount
+  - CoreGuage
   layers:
   - Default
   - TransparentFX

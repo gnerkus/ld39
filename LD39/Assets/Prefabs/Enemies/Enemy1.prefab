@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 195018077695282640}
   - component: {fileID: 64084166691452826}
   - component: {fileID: 114015063523770168}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4742205223123738}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

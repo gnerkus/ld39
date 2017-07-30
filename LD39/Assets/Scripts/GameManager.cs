@@ -8,9 +8,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance = null;
 
-    public Slider hpGuage;
-    public Slider powerGuage;
-    public Text cellCount;
+    private Slider hpGuage;
+    private Slider powerGuage;
+    private Text cellCount;
 
     Player player;
 
@@ -18,13 +18,17 @@ public class GameManager : MonoBehaviour
     public float playerPower;
     public float playerCells;
 
-    private float corePower;
+    public float corePower;
 
     private void Awake()
     {
         corePower = 1000;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        hpGuage = GameObject.FindGameObjectWithTag("HPGuage").GetComponent<Slider>();
+        powerGuage = GameObject.FindGameObjectWithTag("PPGuage").GetComponent<Slider>();
+        cellCount = GameObject.FindGameObjectWithTag("CellCount").GetComponent<Text>();
 
         playerHealth = 10;
         playerPower = 100;
@@ -52,14 +56,24 @@ public class GameManager : MonoBehaviour
         hpGuage.value = player.GetHealth();
         powerGuage.value = player.GetPower();
         cellCount.text = "" + player.GetCells();
+
+        if (corePower <= 0)
+        {
+            instance.GameOver();
+        }
     }
 
     IEnumerator DrainPower()
     {
         for (; ; )
         {
-            // execute block of code here
-            corePower -= 1;
+            Scene currentScene = SceneManager.GetActiveScene();
+
+            if (currentScene.name == "Game")
+            {
+                corePower -= 20;
+            }
+            
             yield return new WaitForSeconds(1f);
         }
     }
@@ -95,11 +109,14 @@ public class GameManager : MonoBehaviour
         playerHealth = currentHealth;
         playerPower = currentPower;
         playerCells = currentCells;
+
+        SceneManager.LoadScene("Loading");
     }
 
     void GameOver()
     {
         enabled = false;
+        SceneManager.LoadScene("GameOver");
     }
 
     public Player GetPlayer()

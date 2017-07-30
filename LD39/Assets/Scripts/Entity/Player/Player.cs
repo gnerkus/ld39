@@ -1,5 +1,6 @@
 ﻿// The Player script receives input for the Player.
 
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
@@ -39,7 +40,7 @@ public class Player : LivingEntity
         // Set the line of sight to the Player's position. This will change to the
         // position of the gun's muzzle.
         lineOfSight.SetPosition(0, crosshair.position);
-        
+        StartCoroutine(DrainPower());
     }
 
     void Update()
@@ -82,7 +83,7 @@ public class Player : LivingEntity
             if (lightPower <= 0)
                 return;
 
-            lightPower -= 1;
+            lightPower -= 2;
             gunController.Shoot();
         }
 
@@ -100,6 +101,25 @@ public class Player : LivingEntity
 
             lightPower -= 25;
             lightstickController.DropLight();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
+    IEnumerator DrainPower()
+    {
+        for (; ; )
+        {
+
+            if (lamp.isLightSourceEnabled())
+            {
+                lightPower -= 1;
+            }
+
+            yield return new WaitForSeconds(1f);
         }
     }
 

@@ -33,6 +33,11 @@ public class GlowingObject : LivingEntity {
         }
     }
 	
+    public bool isLightSourceEnabled()
+    {
+        return lightSource.enabled;
+    }
+
 	// Update is called once per frame
 	void Update () {
 
